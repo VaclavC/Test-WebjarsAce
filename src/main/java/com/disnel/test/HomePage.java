@@ -135,23 +135,23 @@ public class HomePage extends WebPage
 		}
 		
 		@Override
-	    protected void onComponentTag(ComponentTag tag)
+		protected void onComponentTag(ComponentTag tag)
 		{
-	        tag.put(CALLBACK_ATTR, getCallbackUrl().toString());
+			tag.put(CALLBACK_ATTR, getCallbackUrl().toString());
 		}
 		
 		@Override
-	    public void renderHead(Component component, IHeaderResponse response)
+		public void renderHead(Component component, IHeaderResponse response)
 		{
-	        super.renderHead(component, response);
-	        
-	        String cmId = getComponent().getMarkupId();
-	        
-	        response.render(OnDomReadyHeaderItem.forScript(
-	        		String.format("$('#%s').on('ace:save', function() { "
-	        				+ "Wicket.Ajax.post({'u': $(%s).attr('%s'), 'ep': { cmd: 'save', content: %s.getValue() }});"
-	        				+ " });",
-	        				cmId, cmId, CALLBACK_ATTR, jsEditorVar(cmId))));
+			super.renderHead(component, response);
+			
+			String cmId = getComponent().getMarkupId();
+			
+			response.render(OnDomReadyHeaderItem.forScript(
+					String.format("$('#%s').on('ace:save', function() { "
+							+ "Wicket.Ajax.post({'u': $(%s).attr('%s'), 'ep': { cmd: 'save', content: %s.getValue() }});"
+							+ " });",
+							cmId, cmId, CALLBACK_ATTR, jsEditorVar(cmId))));
 		}
 		
 		protected abstract void onSave(AjaxRequestTarget target, String content);
